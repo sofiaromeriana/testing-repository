@@ -1,0 +1,17 @@
+---
+title: "Untitled"
+author: "Sofia Romero"
+date: "1/10/2018"
+output: html_document
+---
+
+# Title
+
+This is text.
+
+```{r}
+print(¨this is code¨)
+```
+
+
+
