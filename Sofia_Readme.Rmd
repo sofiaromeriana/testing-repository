@@ -1,0 +1,39 @@
+---
+title: "Sofia Readme"
+author: "Sofia Romero"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+
+#*Personal information*
+
+###**Name**: Sofia Romero
+###**Program**: Genome Science and Technology 
+###**Research project**: Honey bee's microbiota
+###**Me**:
+ ![This is a image of me](https://i1.rgstatic.net/ii/profile.image/AS%3A486460651511809%401492992665779_xl/Atenas_Romero_Guzman.png)
+
+###*For more information about me check some of my links*: 
+###[This is a link to my research gate](https://www.researchgate.net/profile/Atenas_Romero_Guzman)
+###[This is a link to my linkedin](https://www.linkedin.com/in/atenas-sof%C3%ADa-romero-guzm%C3%A1n-449b46121/)
+###[This is a link to my instagram](https://www.instagram.com/sofiaromeriana/)
+
+####*Course expectations*: I want to learn many things through this course. First I would like to learn basic R coding skils. Secondly, I would like to perform statistics analisis using data using r. Finally, I want to increase my knowledge in biological sciences. 
+
+###*My repository*: This repository will contain my work in GSAT540.
+
+
+```{r Titanic}
+summary(Titanic)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
