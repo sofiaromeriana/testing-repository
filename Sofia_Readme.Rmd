@@ -24,10 +24,6 @@ output: html_document
 ###*My repository*: This repository will contain my work in GSAT540.
 
 
-```{r Titanic}
-summary(Titanic)
-```
-
 ## Including Plots
 
 You can also embed plots, for example:
