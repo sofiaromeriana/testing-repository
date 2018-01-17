@@ -1,0 +1,30 @@
+---
+title: "Seminar 2C"
+author: "Sofia Romero"
+date: "1/16/2018"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+set.seed(1)
+sampleSize <- 5
+numSamples <- 1000
+
+degreeFreedom <- 1
+
+randomChiSqValues <- rchisq(n = numSamples * sampleSize, df = degreeFreedom)
+
+tibble(x= randomChiSqValues) %>% ggplot () + geom_density(aes(x=x), color= "blue")
+
+samples <- matrix(randomChiSqValues, nrow = numSamples, ncol = sampleSize)
+sampleMeans <- rowMeans(samples) # work out the sample means 
+
+head(sampleMeans)
+
+tibble(x = sampleMeans) %>% 
+  ggplot() + 
+  geom_line(aes(x = x), stat = "density", color = "blue") +
+  geom_point(aes(x = x, y = 0), color = "blue", shape = 1, size = 3)
+
+```
