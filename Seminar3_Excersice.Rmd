@@ -1,0 +1,49 @@
+---
+title: "Seminar 3 exercise"
+author: "Sofia Romero"
+date: "1/23/2018"
+output: github_document
+---
+
+```{r}
+#This section is the initial part of the seminar... THE HOMEWORK STARTS FROM THE PLOT
+
+#Calling the libraries
+library(GEOquery)
+library(biomaRt)
+library(tidyverse)
+library(data.table)
+library(reshape2)
+#meta_data part
+gds<- getGEO("GDS507")
+meta_data <- data.frame(Sample = gds@dataTable@columns$sample, disease = gds@dataTable@columns$disease.state)
+#We grab this info from the appropriate slots above. 
+data <- gds@dataTable@table
+library(RCurl)
+data_with_chromosome<-read.csv(file= "biomart_output.csv")
+#full_data: combining the info from meta_data file and expresion table 
+full_data <- left_join(data_with_chromosome, meta_data, by = "Sample")
+full_data %>% 
+    group_by(disease) %>% 
+    filter(chromosome_name == "X") %>% 
+    summarize(mean = mean(Count))
+
+#Analyzing the results of statistical tests and DENSITY PLOT
+library(ggplot2)
+full_data %>% 
+    group_by(hgnc_symbol) %>% 
+    summarize( pvalue = t.test(Count ~ disease)$p.value) %>% ggplot (aes(x=pvalue))+ geom_density()
+#data_frame of pvalues that are lower than 0.005
+pvalues<-full_data %>% 
+  group_by(hgnc_symbol) %>% 
+  summarize( pvalue = t.test(Count ~ disease)$p.value)
+pvalues005<-subset(pvalues, pvalue<0.005)
+#This is the new data frame
+pvalues005
+#Name of the gene with the lowest expression: Filtering the name of the gene that vas the lowest p value, I found those genes by subsetting those genes which pvalue is equal to the min value previously found
+min_pvalue_name<-pvalues[which(pvalues$pvalue == min(pvalues$pvalue)),]
+min_pvalue_name
+#Name of the gene: CLDN2
+```
+
+    
