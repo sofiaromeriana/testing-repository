@@ -42,7 +42,7 @@ biocLite("limma")
 
     ## 
     ## The downloaded binary packages are in
-    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//Rtmp3AIdKr/downloaded_packages
+    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//Rtmpamenvy/downloaded_packages
 
     ## Old packages: 'GEOquery', 'digest', 'viridisLite'
 
@@ -477,13 +477,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##            [,1]       [,2]       [,3]
-    ## [1,] -0.8493000  0.9211274  0.3873951
-    ## [2,] -0.7668743  0.5982329 -0.9110171
-    ## [3,]  2.2265661 -0.1170805 -1.1316294
-    ## [4,] -0.6175413  0.0463113 -2.7122227
-    ## [5,]  0.1726236 -1.3282525 -1.7066828
-    ## [6,] -0.4850170 -0.4580546 -0.5897007
+    ##             [,1]       [,2]        [,3]
+    ## [1,] -0.29162063 -0.3953569 -0.12633756
+    ## [2,] -0.06784019  1.0050956 -1.18523726
+    ## [3,] -0.25248243  0.8066252 -0.52666199
+    ## [4,] -0.01295291  0.3074799  0.52102439
+    ## [5,] -0.14434654  0.8064845 -0.08125636
+    ## [6,] -0.16189900  0.5212849  3.06499024
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene

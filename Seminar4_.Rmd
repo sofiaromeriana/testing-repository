@@ -1,0 +1,98 @@
+---
+title: "Seminar 4"
+author: "Sofia Romero"
+date: "1/29/2018"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+install.packages("reshape2", dependencies = TRUE, repos = "http://cran.stat.sfu.ca/")
+source("https://bioconductor.org/biocLite.R")
+biocLite("limma")
+library(reshape2)
+library(limma)
+#Importing expression matrix 
+expressionMatrix <-read.table(file= 'GSE4051_data.tsv', stringsAsFactors =FALSE)
+expressionMatrix<- expressionMatrix %>% rownames_to_column("gene")
+# rownames deprecated in tibbles and are hard to work with in ggplot
+expressionMatrix <- expressionMatrix %>% as_tibble()
+expressionMatrix
+#Importing design of the dataset
+samplesMetadata <-read.table(file= 'GSE4051_design.tsv', 
+                              header = TRUE, # set header = TRUE to use the first row of the data as column names
+                              stringsAsFactors = FALSE) # set stringAsFactors to avoid setting everything as factors, we can control that ourselves
+samplesMetadata <- samplesMetadata %>% as_tibble() # turn into tibble for pretty printing
+# define our own column names for samples metadata for clarity
+names(samplesMetadata) <- c("sample_id", "sample_number", "dev_stage", "genotype")
+samplesMetadata
+#Define factors
+#1.Defining the factors of the developmental stage 
+samplesMetadata$dev_stage <- samplesMetadata$dev_stage %>% factor(levels = c("E16", "P2", "P6", "P10", "4_weeks"))
+samplesMetadata$dev_stage # note that Levels contain all possible categories of the variable
+#2.Defining the factors of the genotype
+samplesMetadata$genotype <- samplesMetadata$genotype %>% factor(levels = c("wt", "NrlKO"))
+samplesMetadata$genotype # note that Levels contain all possible categories of the variable
+samplesMetadata # columns dev_stage and genotype are now type factor
+#Comparing same numbers of columns and rows
+expressionMatrix %>% ncol() - 1 # number of samples in the expression matrix (- column for genes)
+samplesMetadata %>% nrow() # number of samples in the samples metadata 
+# do these numbers match? Let's also print them out
+expressionMatrix %>% names() %>% sort()
+samplesMetadata$sample_id %>% sort()
+# melt into a format ggplot can easily work with
+meltedExpressionMatrix <- expressionMatrix %>% melt(id = "gene") 
+meltedExpressionMatrix %>% 
+  ggplot(aes(x = variable, y = value)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+meltedExpressionMatrix %>% 
+  ggplot(aes(x = value, color = variable)) +
+  geom_density() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#individuals genes
+geneIds <- c("1416119_at", "1431708_a_at")
+# use dplyr::filter() to get the expression data for the gene
+expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
+expressionDataForGene <- expressionDataForGene %>%
+  as.data.frame() %>% 
+  column_to_rownames("gene") %>%
+  t() %>% as.data.frame() %>% 
+  rownames_to_column("sample_id") %>% 
+  melt(id = "sample_id") %>% 
+  as_tibble() %>% 
+  select(sample_id,
+         gene = variable, 
+         expression = value)
+expressionDataForGene
+#Actually, let's put this data transformation code into a function so that it can be reused; we will routinely need the dataset to be in this format as we perform analyses.
+transformGeneExpressionMatrix <- function(expressionMatrix) {
+  expressionMatrix <- expressionMatrix %>%
+    as.data.frame() %>% 
+    column_to_rownames("gene") %>%
+    t() %>% as.data.frame() %>% 
+    rownames_to_column("sample_id") %>% 
+    melt(id = "sample_id") %>% 
+    as_tibble() %>% 
+    select(sample_id,
+           gene = variable, 
+           expression = value)
+  return(expressionMatrix)
+}
+# use dplyr::filter() to get the expression data for the gene
+expressionDataForGene <- expressionMatrix %>% filter(gene %in% geneIds)
+# this is the original expression matrix, consisting of only the one gene we filtered for
+# now transformed
+expressionDataForGene <- transformGeneExpressionMatrix(expressionDataForGene)
+expressionDataForGene
+#we integrate the samples metadata by doing a join.
+expressionDataForGene <- expressionDataForGene %>% left_join(samplesMetadata, by = "sample_id")
+expressionDataForGene
+expressionDataForGene %>% 
+  ggplot(aes(x = expression, y = genotype, color = genotype)) + 
+  geom_point(size = 3, shape = 1) +
+  facet_wrap(~gene)
+```
+
+

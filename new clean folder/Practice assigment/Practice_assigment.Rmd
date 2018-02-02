@@ -1,0 +1,128 @@
+---
+title: "Practice assigment"
+author: "Sofia Romero"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+---
+
+
+#PART 1: Data inspection 
+#Titanic
+###This data set contains information on the fate of passengers on the fatal maiden voyage of the ocean liner 'Titanic', summarized according to a)economic status (class) b)sex c) age d)survival. Here is presented the data set as a data frame: 
+
+``` {r}
+Titanic<-data.frame(Titanic) #Here we are converting the dataset Titanic in a data frame, and saving it with the same name "Titanic". 
+Titanic #Printing the data frame.  
+sum(Titanic$Freq)
+```
+
+
+###Considering this data set... let's answer these questions: 
+####1.How many children and adults were on Titanic? **R= 109 children and 2092 adults** 
+####2.Were there more female adult or male adult passengers? R= **Since 1667>425, there were more male passengers**
+
+####I could answer these questions using the code below. First, I created different subsets to filter the information, Even subsets from subsets. To determine the number of children, adults, female-adult and male-adult I used the function "sum". 
+
+```{r}
+Titanic_children<-Titanic[Titanic$Age== "Child",] #Subset of all the children of "Titanic"" data frame
+Titanic_children
+sum(Titanic_children$Freq) #sum of the frequency column of "children" subset
+Titanic_adults<-Titanic[Titanic$Age== "Adult",] #Subset of all the adults of "Titanic" data frame
+Titanic_adults 
+sum(Titanic_adults$Freq)#sum of the frequency column of "adult" subset
+Titanic_male_adults<-Titanic_adults[Titanic_adults$Sex== "Male",] #Subset of all the male from the subset adults
+Titanic_male_adults 
+sum(Titanic_male_adults$Freq)#sum of the frequency column of "male adults" subset
+Titanic_female_adults<-Titanic_adults[Titanic_adults$Sex== "Female",]#Subset of all the female from the subset adults
+Titanic_female_adults
+sum(Titanic_female_adults$Freq)#sum of the frequency column of "female adults" subset
+``` 
+
+###More questions:
+####3.Did the children have better survival rate than the adults? R= **Children, because children's rate was around 0.52 and adult's rate was 0.31**
+####4.Which class of passengers have a better survival rate? (Crew, first class, second class, third class) R= **First rate (around 0.62)** 
+
+####I could answer these questions by subsetting from the subsets I did before of adults and children, just that now the subsetting parameter was the survival rate and the condition was "Yes" (they survived). After I added up the frequency, I calculated the rate. For the question 4. It was necessary to create a completely new group of subsets based on class. The frequency is just the result of the division of a sub subset/ subset.  
+
+```{r}
+Titanic_children_survived<-Titanic_children[Titanic_children$Survived== "Yes",] #Children subset (we already had the adult one)
+Titanic_children_survived
+a<-sum(Titanic_children_survived$Freq) #To be able to divide the frequency of the subset we have to assign the sum to a variable
+sum(Titanic_children_survived$Freq)
+b<-sum(Titanic_children$Freq)  #To be able to divide the frequency of the subset we have to assign the sum to a variable
+sum(Titanic_children$Freq)
+children_rate_survived<-a/b #Calculating the rate
+children_rate_survived #Rate of children that survived
+Titanic_adults_survived<-Titanic_adults[Titanic_adults$Survived== "Yes",] #Sub setting the adults that survived
+Titanic_adults_survived
+f<-sum(Titanic_adults_survived$Freq) #Assigning the sum of the frequency of the adults that survived to a variable 
+sum(Titanic_adults_survived$Freq)
+g<-sum(Titanic_adults$Freq) #Assigning the sum of the frequency of the adults that survived to a variable 
+sum(Titanic_adults$Freq)
+adults_rate_survived<-f/g #Calculating the rate
+adults_rate_survived #Rate of the adults that survived
+#From here the code is for the question number 4. Subsets for each type of class were created. The rates were calculated by dividing (number of people that survived per a particular class)/(number of people of that same class)
+#First class 
+Titanic_first<-Titanic[Titanic$Class== "1st",]
+Titanic_first_survived<-Titanic_first[Titanic_first$Survived== "Yes",]
+h<-sum(Titanic_first$Freq)
+i<-sum(Titanic_first_survived$Freq)
+h
+i
+first_rate<-i/h
+#Second class
+Titanic_second<-Titanic[Titanic$Class== "2nd",]
+Titanic_second_survived<-Titanic_second[Titanic_second$Survived== "Yes",]
+j<-sum(Titanic_second$Freq)
+k<-sum(Titanic_second_survived$Freq)
+j
+k
+second_rate<-k/j
+#Third class
+Titanic_third<-Titanic[Titanic$Class== "3rd",]
+Titanic_third_survived<-Titanic_third[Titanic_third$Survived== "Yes",]
+l<-sum(Titanic_third$Freq)
+m<-sum(Titanic_third_survived$Freq)
+l
+m
+third_rate<-m/l
+#Crew 
+Titanic_crew<-Titanic[Titanic$Class== "Crew",]
+Titanic_crew_survived<-Titanic_crew[Titanic_crew$Survived== "Yes",]
+n<-sum(Titanic_crew$Freq)
+o<-sum(Titanic_crew_survived$Freq)
+n
+o
+crew_rate<-o/n
+#Rates obtained are printed here: 
+
+first_rate #First class survival rate
+second_rate #Second class survival rate
+third_rate #Thrid class survival rate
+crew_rate #Four class survival rate
+```
+
+#PART 2: Data Visualization
+#Guinea pig tooth growth 
+###In this activity I used "read.table"" to read an specific ".txt" file
+
+```{r}
+#Presenting the .txt file as a data set (gdf) using read.table and at the
+gdf<-read.table("https://raw.githubusercontent.com/STAT540-UBC/STAT540-UBC.github.io/master/homework/practice_assignment/guinea_pigs_tooth_growth.txt", header= TRUE)
+gdf #This is the name of the data set for the guinea pig tooth growth file.
+``` 
+####Description of the data: The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC).
+
+###Then I had to:
+###1.Create a figure for this dataset (whatever graph)
+###2.Explain how my graph is informative: what does it tell you about the result of the experiment? Also explain why I choose to present the data in this way.
+
+###1.Plot: 
+``` {r}
+##To create a figure I first called the library tidyverse
+library(tidyverse)
+ggplot(data=gdf)+ geom_point(mapping = aes(x=dose, y=len, color= supp)) #I tried many figures but at the end I chose geom_point because I could understand the array of the data in this way. Also I think with the correct figure legends is descriptive. You can differentiate easily the response (y) and the two variable inputs (x and color)
+```  
+
+###2.Explanation: 
+###Using the geom_point it is possible to visualize the important information of the data set. First, each response (each point) of the lenght of odonblasts is shown in axis "y" (dependent variable) as a response to the dose "x" (independent variable). Three groups of points are observed for each dose (0.5, 1 and 2.0). The color indicates  the delivery methods: VC=blue is vitaminc C and OJ=red  is for orange juice. Just looking at the points is possible to see how clustered the treatments by doses are and how orange juice shows a slightly higher response. 

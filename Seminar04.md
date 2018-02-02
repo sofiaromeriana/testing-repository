@@ -1,10 +1,10 @@
-Seminar 4
+Seminar \# 4
 ================
 Sofia Romero
 1/29/2018
 
 ``` r
-#Part 1: Calling packages that are required for the seminar
+#Part 1: Calling the packages that are required for the seminar
 library(tidyverse)
 ```
 
@@ -39,7 +39,7 @@ biocLite("limma")
 
     ## 
     ## The downloaded binary packages are in
-    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//RtmpFhCevR/downloaded_packages
+    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//RtmpWqwjnz/downloaded_packages
 
     ## Old packages: 'GEOquery', 'digest', 'viridisLite'
 
@@ -475,12 +475,12 @@ simulatedGeneExpressionMatrix %>% head()
 ```
 
     ##            [,1]       [,2]       [,3]
-    ## [1,]  0.8048197 -0.9063815  0.8240166
-    ## [2,] -0.4227543 -0.2137028 -0.6454574
-    ## [3,] -0.5677242 -0.1229300 -0.3580074
-    ## [4,]  0.1566631  2.5414502  0.3092504
-    ## [5,]  1.0558623  0.7483756  2.0142298
-    ## [6,] -0.6648883  0.8484955 -2.2476958
+    ## [1,]  0.4556574 -0.8204320 -1.3844701
+    ## [2,]  0.4296320 -0.8822683  0.3381510
+    ## [3,] -1.0534651 -0.9954136 -0.4776496
+    ## [4,] -0.6940001  0.5669054  0.0681630
+    ## [5,] -0.4418534  0.6284871  1.3815952
+    ## [6,]  0.1781183 -0.8308636 -0.7161876
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene

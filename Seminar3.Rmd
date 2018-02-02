@@ -1,0 +1,44 @@
+---
+title: "Seminar 3"
+author: "Sofia Romero"
+date: "1/22/2018"
+output: html_document
+---
+```{R}
+library(GEOquery)
+library(biomaRt)
+library(tidyverse)
+library(data.table)
+library(reshape2)
+gds <- getGEO("GDS507")
+str(gds)
+#The first thing we want to do is extract a meta data table, and a gene expression table.
+meta_data<-data.frame(Sample = gds@dataTable@columns$sample, disease = gds@dataTable@columns$disease.state)
+#we grab this info from the appropriate slots above. 
+data <-gds@dataTable@table
+#lets peak at the data to see its structure using head(). This gives us the first few rows of the dataset.
+head(data)
+nrow(data)
+ncol(data)
+#We exclude the first and second columns because they hold the probe and gene names, respectively. 
+apply(data[,-c(1, 2)], 2, median)
+#make tidy our data
+melted_data <- melt(data, id.vars = c("ID_REF", "IDENTIFIER"), var = "Sample")
+head(melted_data)
+#We can do a lot of stuff with this setup! Let's calculate the mean gene expression per sample.
+melted_data %>% 
+    group_by(Sample) %>% 
+    summarize(mean = mean(value))
+new_melted_data <- melted_data %>% 
+    group_by(Sample, IDENTIFIER) %>% 
+    summarize(Count = mean(value))
+new_melted_data <- melted_data %>% 
+    group_by(Sample, IDENTIFIER) %>% 
+    summarize(Count = mean(value))
+```
+look.for <- c(1578, 1658, 1616)
+> mydata_2[mydata_2$height_seca1 %in% look.for, ]
+
+
+
+

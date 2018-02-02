@@ -19,9 +19,11 @@ output: html_document
 ###[This is a link to my linkedin](https://www.linkedin.com/in/atenas-sof%C3%ADa-romero-guzm%C3%A1n-449b46121/)
 ###[This is a link to my instagram](https://www.instagram.com/sofiaromeriana/)
 
-####*Course expectations*: I want to learn many things through this course. First I would like to learn basic R coding skils. Secondly, I would like to perform statistics analisis using data using r. Finally, I want to increase my knowledge in biological sciences. 
+####*Course expectations*: 
+I want to learn many things through this course. First, I would like to learn basic R coding skills. Secondly, I would like to perform statistics analysis  using r. Finally, I want to increase my knowledge in biological sciences.
 
-###*My repository*: This repository will contain my work in GSAT540.
+###*My repository*: 
+This repository will contain my work in GSAT540.
 
 
 ## Including Plots

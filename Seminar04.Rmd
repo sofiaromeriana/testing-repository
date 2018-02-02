@@ -1,13 +1,12 @@
 ---
-title: "Seminar 4"
+title: "Seminar # 4"
 author: "Sofia Romero"
 date: "1/29/2018"
 output: github_document
 ---
 
-
 ```{r}
-#Part 1: Calling packages that are required for the seminar
+#Part 1: Calling the packages that are required for the seminar
 library(tidyverse)
 source("https://bioconductor.org/biocLite.R")
 biocLite("limma")
