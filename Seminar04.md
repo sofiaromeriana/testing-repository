@@ -5,9 +5,6 @@ Sofia Romero
 
 ``` r
 #Part 1: Calling packages that are required for the seminar
-```
-
-``` r
 library(tidyverse)
 ```
 
@@ -42,7 +39,7 @@ biocLite("limma")
 
     ## 
     ## The downloaded binary packages are in
-    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//RtmpwuR3wG/downloaded_packages
+    ##  /var/folders/k6/3jg9sh5d23g4_tx65n4w5r0h0000gn/T//RtmpFhCevR/downloaded_packages
 
     ## Old packages: 'GEOquery', 'digest', 'viridisLite'
 
@@ -224,7 +221,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 ``` r
 meltedExpressionMatrix %>% 
@@ -233,7 +230,7 @@ meltedExpressionMatrix %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-2-2.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-2.png)
 
 ``` r
 #Part 3:Single gene differential expression
@@ -334,7 +331,7 @@ expressionDataForGene %>%
   facet_wrap(~gene)
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-2-3.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-3.png)
 
 ``` r
 #Let's first do a t-test to compare the expression values across the two genotypes for the boring gene.
@@ -477,13 +474,13 @@ simulatedGeneExpressionMatrix <- matrix(rnorm(numberOfGenes * numberOfSamples), 
 simulatedGeneExpressionMatrix %>% head()
 ```
 
-    ##            [,1]        [,2]        [,3]
-    ## [1,]  2.2770750 -1.17494388 -0.08322291
-    ## [2,] -0.6619411  0.72902402 -0.49597017
-    ## [3,]  1.0296611  1.66372767 -0.67997534
-    ## [4,] -0.4290995  0.07788638  0.46355287
-    ## [5,]  0.9852056 -0.16075296 -0.05411105
-    ## [6,]  0.5157997 -1.41536865 -0.66202762
+    ##            [,1]       [,2]       [,3]
+    ## [1,]  0.8048197 -0.9063815  0.8240166
+    ## [2,] -0.4227543 -0.2137028 -0.6454574
+    ## [3,] -0.5677242 -0.1229300 -0.3580074
+    ## [4,]  0.1566631  2.5414502  0.3092504
+    ## [5,]  1.0558623  0.7483756  2.0142298
+    ## [6,] -0.6648883  0.8484955 -2.2476958
 
 ``` r
 geneVars <- simulatedGeneExpressionMatrix %>% apply(1, var) # work out the variance for each gene
@@ -494,7 +491,7 @@ tibble(variance = geneVars) %>%
   geom_point(aes(y = 0), shape = 1, size = 3)
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-4.png)
 
 ``` r
 # filter for wildtype data
@@ -704,7 +701,7 @@ topGenesExpressionData %>%
   facet_wrap(~gene)
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-5.png)
 
 ``` r
 #Lets look to least significant genes
@@ -731,7 +728,7 @@ plotGenes(topGenes, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-3.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-6.png)
 
 ``` r
 ## Joining, by = "sample_id"
@@ -778,7 +775,7 @@ plotGenes(rownames(boringGenes), wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-4.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-7.png)
 
 ``` r
 ## Joining, by = "sample_id"
@@ -856,7 +853,7 @@ plotGenes(rownames(contrastGenes)[1:6], wildTypeExpressionMatrix, wildTypeSample
 
     ## Joining, by = "sample_id"
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-5.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-8.png)
 
 ``` r
 cutoff <- 1e-04
@@ -891,7 +888,7 @@ plotGenes(hits1$gene, wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-6.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-9.png)
 
 ``` r
 #Here are 4 of the 8 that decline from P10 to 4_weeks.
@@ -920,7 +917,7 @@ plotGenes(hits2$gene[1:4], wildTypeExpressionMatrix, wildTypeSamples)
 
     ## Joining, by = "sample_id"
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-7.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-10.png)
 
 ``` r
 hits1$gene %>% intersect(hits2$gene)
@@ -1098,7 +1095,7 @@ expressionDataForHits %>%
   facet_wrap(~gene)
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-8.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-11.png)
 
 ``` r
 #Part 5: No interaction between genotype and development stages 
@@ -1124,4 +1121,4 @@ expressionDataForHits %>%
   facet_wrap(~gene)
 ```
 
-![](Seminar04_files/figure-markdown_github/unnamed-chunk-3-9.png)
+![](Seminar04_files/figure-markdown_github/unnamed-chunk-1-12.png)

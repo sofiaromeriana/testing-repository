@@ -8,9 +8,6 @@ output: github_document
 
 ```{r}
 #Part 1: Calling packages that are required for the seminar
-```
-
-```{r}
 library(tidyverse)
 source("https://bioconductor.org/biocLite.R")
 biocLite("limma")
@@ -116,9 +113,7 @@ interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
 summary(aov(expression ~ dev_stage, interestingGene))
 interestingGene <- expressionDataForGene %>% filter(gene == "1431708_a_at")
 summary(lm(expression ~ dev_stage, interestingGene))
-```
 
-```{r}
 #Part 4: Differential expression assesing different genes 
 numberOfGenes <- 1000
 numberOfSamples <- 3
